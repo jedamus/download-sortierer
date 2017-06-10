@@ -1,2 +1,2 @@
 # download-sortierer
-Ein Download-Sortierer, der betsimmte Dateien in eine Ordnerstruktur bringt.
+Ein Download-Sortierer, der bestimmte Dateien in eine Ordnerstruktur bringt.
