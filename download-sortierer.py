@@ -1,30 +1,20 @@
 #!/usr/bin/env python3
-# Notifier example from tutorial
-#
-# See: http://github.com/seb-m/pyinotify/wiki/Tutorial
-# modifiziert Samstag, 10. Juni 2017 10:24 von Leander Jedamus
+# coding=utf8
+
+# erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
+# modifiziert Samstag, 10. Juni 2017 11:25 von Leander Jedamus
 # modifiziert Freitag, 09. Juni 2017 20:49 von Leander Jedamus
-#
-# modifiziert Freitag, 09. Juni 2017 19:01 von Leander Jedamus
 # modifiziert Donnerstag, 08. Juni 2017 19:05 von Leander Jedamus
+
 import pyinotify
 import re
 
-class IncludeFilter(pyinotify.ExcludeFilter):
-  def __call__(self, path):
-    for regex in self._lregex:
-      if self._match(regex, path):
-        return False
-    return True
-
 path_to_watch = "/home/leander/Downloads";
 
-incfilter = pyinotify.ExcludeFilter(["/tmp/download/test.*", "/tmp/download/*.iso"]);
-
 dict_regex_and_path = {
- path_to_watch + "/.*\.dmg": "/home/leander/Downloads/dmg",
- path_to_watch + "/.*\.pkg": "/home/leander/Downloads/dmg",
- path_to_watch + "/.*\.iso": "/home/leander/Downloads/iso"
+ path_to_watch + "/.*\.dmg": path_to_watch + "/dmg",
+ path_to_watch + "/.*\.pkg": path_to_watch + "/dmg",
+ path_to_watch + "/.*\.iso": path_to_watch + "/iso"
                       };
 
 dict_compiled_regex_and_path = {};
