@@ -2,7 +2,7 @@
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
-# modifiziert Samstag, 10. Juni 2017 11:29 von Leander Jedamus
+# modifiziert Samstag, 10. Juni 2017 12:07 von Leander Jedamus
 # modifiziert Freitag, 09. Juni 2017 20:49 von Leander Jedamus
 # modifiziert Donnerstag, 08. Juni 2017 19:05 von Leander Jedamus
 
@@ -38,3 +38,6 @@ notifier = pyinotify.Notifier(wm, handler)
 wdd = wm.add_watch(path_to_watch, mask, rec=False);
 
 notifier.loop()
+
+# vim:ai sw=2 sts=4 expandtab
+
