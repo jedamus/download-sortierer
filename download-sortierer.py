@@ -2,25 +2,35 @@
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
+# modifiziert Montag, 12. Juni 2017 18:13 von Leander Jedamus
 # modifiziert Samstag, 10. Juni 2017 12:07 von Leander Jedamus
 # modifiziert Freitag, 09. Juni 2017 20:49 von Leander Jedamus
 # modifiziert Donnerstag, 08. Juni 2017 19:05 von Leander Jedamus
 
+import os
 import pyinotify
 import re
 
-path_to_watch = "/home/leander/Downloads";
+home = os.environ["HOME"];
+path_to_watch = home + "/" + "Downloads";
 
-dict_regex_and_path = {
- path_to_watch + "/.*\.dmg": path_to_watch + "/dmg",
- path_to_watch + "/.*\.pkg": path_to_watch + "/dmg",
- path_to_watch + "/.*\.iso": path_to_watch + "/iso"
-                      };
+dict_suffix_and_path = {
+  "dmg": "dmg",
+  "pkg": "dmg",
+  "iso": "iso",
+  "zip": "zip",
+  "deb": "deb",
+  "pdf": home + "/" + "pdf" + "/" + "download PDFs",
+};
 
 dict_compiled_regex_and_path = {};
-for key in dict_regex_and_path:
-  compiled_key = re.compile(key, re.UNICODE);
-  dict_compiled_regex_and_path.update({ compiled_key: dict_regex_and_path[key] });
+for key in dict_suffix_and_path:
+  path = dict_suffix_and_path[key];
+  if path[0] != "/":
+    path = path_to_watch + "/" + path;
+  regex = path_to_watch + "/" + r'.*[.]' + key;
+  compiled_key = re.compile(regex, re.UNICODE);
+  dict_compiled_regex_and_path.update({ compiled_key: path });
 
 wm = pyinotify.WatchManager();  # Watch Manager
 mask = pyinotify.IN_CLOSE_WRITE # watched events
