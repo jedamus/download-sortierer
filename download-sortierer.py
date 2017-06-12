@@ -2,7 +2,7 @@
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
-# modifiziert Montag, 12. Juni 2017 18:44 von Leander Jedamus
+# modifiziert Montag, 12. Juni 2017 18:47 von Leander Jedamus
 # modifiziert Samstag, 10. Juni 2017 12:07 von Leander Jedamus
 # modifiziert Freitag, 09. Juni 2017 20:49 von Leander Jedamus
 # modifiziert Donnerstag, 08. Juni 2017 19:05 von Leander Jedamus
