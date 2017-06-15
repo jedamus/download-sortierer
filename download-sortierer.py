@@ -2,6 +2,7 @@
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
+# modifiziert Freitag, 16. Juni 2017 00:51 von Leander Jedamus
 # modifiziert Montag, 12. Juni 2017 18:47 von Leander Jedamus
 # modifiziert Samstag, 10. Juni 2017 12:07 von Leander Jedamus
 # modifiziert Freitag, 09. Juni 2017 20:49 von Leander Jedamus
@@ -15,22 +16,27 @@ home = os.environ["HOME"];
 path_to_watch = home + "/" + "Downloads";
 
 dict_suffix_and_path = {
-  "dmg": "dmg",
-  "pkg": "dmg",
-  "iso": "iso",
-  "zip": "zip",
-  "deb": "deb",
-  "pdf": home + "/" + "Documents" + "/" + "pdf" + "/" + "download PDFs",
+  "dmg":       "dmg",
+  "pkg":       "dmg",
+  "iso":       "iso",
+  "zip":       "zip",
+  "deb":       "deb",
+  "pdf":       home + "/" + "Documents" + "/" + "pdf" + "/" + "download PDFs",
+  "tar.gz":    "tgz",
+  "tar.xz":    "tgz",
+  "tar.bzip2": "tgz",
+  "a.b.c.d":   "abcd",
 };
 
 dict_compiled_regex_and_path = {};
 for key in dict_suffix_and_path:
+  suffix = re.sub("[.]","[.]",key);
   path = dict_suffix_and_path[key];
   if path[0] != "/":
     path = path_to_watch + "/" + path;
-  regex = path_to_watch + "/" + ".*[.]" + key;
+  regex = path_to_watch + "/" + ".*" + suffix;
   compiled_key = re.compile(regex, re.UNICODE);
-  dict_compiled_regex_and_path.update({ compiled_key: path });
+  dict_compiled_regex_and_path.update({ compiled_key: [suffix, path] });
 
 wm = pyinotify.WatchManager();  # Watch Manager
 mask = pyinotify.IN_CLOSE_WRITE # watched events
@@ -40,9 +46,12 @@ class EventHandler(pyinotify.ProcessEvent):
       pathname = event.pathname;
       for key in dict_compiled_regex_and_path:
         if key.match(pathname):
-          new_path = dict_compiled_regex_and_path[key];
-          if not os.access(path, os.F_OK | os.X_OK):
-            os.makedirs(path);
+          new_path = dict_compiled_regex_and_path[key][1];
+          suffix = dict_compiled_regex_and_path[key][0];
+          print(new_path);
+          print(suffix);
+          if not os.access(new_path, os.F_OK | os.X_OK):
+            os.makedirs(new_path);
           filename = re.sub(".*/(.*[.].*)","\g<1>",pathname);
           os.rename(pathname, new_path + "/" + filename);
           break;
