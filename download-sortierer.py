@@ -1,15 +1,17 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
-# modifiziert Freitag, 16. Juni 2017 01:06 von Leander Jedamus
+# modifiziert Freitag, 16. Juni 2017 01:30 von Leander Jedamus
 # modifiziert Montag, 12. Juni 2017 18:47 von Leander Jedamus
 # modifiziert Samstag, 10. Juni 2017 12:07 von Leander Jedamus
 # modifiziert Freitag, 09. Juni 2017 20:49 von Leander Jedamus
 # modifiziert Donnerstag, 08. Juni 2017 19:05 von Leander Jedamus
 
 import os
+import sys
 import pyinotify
+import pynotify
 import re
 
 home = os.environ["HOME"];
@@ -27,6 +29,9 @@ dict_suffix_and_path = {
   "tar.bzip2": "tgz",
   "a.b.c.d":   "abcd",
 };
+
+if not pynotify.init("Download-Sortierer"):
+  sys.exit(1);
 
 dict_compiled_regex_and_path = {};
 for key in dict_suffix_and_path:
@@ -64,11 +69,15 @@ class EventHandler(pyinotify.ProcessEvent):
           new_filename = new_path + "/" + filename;
           if os.access(new_filename, os.F_OK):
             for i in range(2,99):
-              new_filename = new_path + "/" + filename_without_suffix + \
-                "({i:02d})".format(i=i) + "." + suffix;
-              if not os.access(new_filename, os.F_OK):
+              new_filename = filename_without_suffix + "({i:02d})".format(i=i) \
+                + "." + suffix;
+              if not os.access(new_path + "/" + new_filename, os.F_OK):
                 break;
-          os.rename(pathname, new_filename);
+          n = pynotify.Notification("Download-Sortierer",
+                "Moved {filename:s} from {frompath:s} to {topath:s} as {newfile:s}".format(filename=filename, frompath=path_to_watch, topath=new_path, newfile=new_filename));
+          if not n.show():
+            print("Failed to send notification");
+          os.rename(pathname, new_path + "/" + new_filename);
           break;
 
 handler = EventHandler()
