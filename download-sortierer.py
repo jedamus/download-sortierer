@@ -2,7 +2,7 @@
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
-# modifiziert Freitag, 16. Juni 2017 01:30 von Leander Jedamus
+# modifiziert Freitag, 16. Juni 2017 01:43 von Leander Jedamus
 # modifiziert Montag, 12. Juni 2017 18:47 von Leander Jedamus
 # modifiziert Samstag, 10. Juni 2017 12:07 von Leander Jedamus
 # modifiziert Freitag, 09. Juni 2017 20:49 von Leander Jedamus
@@ -13,6 +13,7 @@ import sys
 import pyinotify
 import pynotify
 import re
+import gettext
 
 home = os.environ["HOME"];
 path_to_watch = home + "/" + "Downloads";
@@ -30,7 +31,17 @@ dict_suffix_and_path = {
   "a.b.c.d":   "abcd",
 };
 
-if not pynotify.init("Download-Sortierer"):
+scriptpath = os.path.abspath(os.path.dirname(sys.argv[0]))
+try:
+  trans = gettext.translation("download-sortierer.py",os.path.join(scriptpath, \
+                                                       "translate"))
+  trans.install(unicode=True)
+except IOError:
+  print("Fehler in gettext");
+  def _(s):
+    return s;
+
+if not pynotify.init(_("Download-Sorter")):
   sys.exit(1);
 
 dict_compiled_regex_and_path = {};
@@ -73,10 +84,10 @@ class EventHandler(pyinotify.ProcessEvent):
                 + "." + suffix;
               if not os.access(new_path + "/" + new_filename, os.F_OK):
                 break;
-          n = pynotify.Notification("Download-Sortierer",
-                "Moved {filename:s} from {frompath:s} to {topath:s} as {newfile:s}".format(filename=filename, frompath=path_to_watch, topath=new_path, newfile=new_filename));
+          n = pynotify.Notification(_("Download-Sorter"),
+                _("Moved {filename:s} from {frompath:s} to {topath:s} as {newfile:s}").format(filename=filename, frompath=path_to_watch, topath=new_path, newfile=new_filename));
           if not n.show():
-            print("Failed to send notification");
+            print(_("Failed to send notification"));
           os.rename(pathname, new_path + "/" + new_filename);
           break;
 
