@@ -1,0 +1,31 @@
+# download-sortierer.py.
+# Copyright (C) 2017 Leander Jedamus
+# This file is distributed under the same license as the download-sortierer.py package.
+# ljedamus@testmail.com, 2017.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: download-sortierer.py 1.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-16 01:49+0200\n"
+"PO-Revision-Date: 2017-06-16 01:46+0200\n"
+"Last-Translator: Automatically generated\n"
+"Language-Team: none\n"
+"Language: de\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: download-sortierer.py:44 download-sortierer.py:87
+msgid "Download-Sorter"
+msgstr "Download-Sortierer"
+
+#: download-sortierer.py:88
+msgid "Moved {filename:s} from {frompath:s} to {topath:s} as {newfile:s}"
+msgstr ""
+"Verschiebe {filename:s} von {frompath:s} nach {topath:s} als {newfile:s}"
+
+#: download-sortierer.py:90
+msgid "Failed to send notification"
+msgstr "Konnte Meldung nicht senden"
