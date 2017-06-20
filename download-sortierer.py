@@ -99,4 +99,3 @@ wdd = wm.add_watch(path_to_watch, mask, rec=False);
 notifier.loop()
 
 # vim:ai sw=2 sts=4 expandtab
-
