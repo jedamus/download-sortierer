@@ -2,7 +2,7 @@
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
-# modifiziert Donnerstag, 22. Juni 2017 15:26 von Leander Jedamus
+# modifiziert Donnerstag, 22. Juni 2017 15:36 von Leander Jedamus
 # modifiziert Freitag, 16. Juni 2017 01:57 von Leander Jedamus
 # modifiziert Montag, 12. Juni 2017 18:47 von Leander Jedamus
 # modifiziert Samstag, 10. Juni 2017 12:07 von Leander Jedamus
@@ -22,8 +22,8 @@ path_to_watch = os.path.join(home,"Downloads")
 log_path_and_filename = os.path.join("/tmp","download-sortierer.log")
 
 dict_suffix_and_path = {
-  "dmg":       "dmg",
-  "pkg":       "dmg",
+  "dmg":       os.path.join("MacOS","dmg"),
+  "pkg":       os.path.join("MacOS","dmg"),
   "iso":       "iso",
   "zip":       "zip",
   "deb":       "deb",
@@ -87,7 +87,11 @@ class EventHandler(pyinotify.ProcessEvent):
           log.debug(_("suffix_regex = {suffix_regex:s}").format(suffix_regex=suffix_regex))
           log.debug(_("suffix = {suffix:s}").format(suffix=suffix))
           if not os.access(new_path, os.F_OK | os.X_OK):
-            os.makedirs(new_path)
+            try:
+              os.makedirs(new_path)
+            except OSError:
+              log.error(_("Can't create dirs {dirs:s}").format(dirs=new_path))
+              break
           filename = re.sub(os.path.join(".*","(.*") + suffix_regex + ")",
             "\g<1>",pathname)
           filename_without_suffix = re.sub("(.*)" + suffix_regex,"\g<1>",
@@ -102,14 +106,17 @@ class EventHandler(pyinotify.ProcessEvent):
                 + "." + suffix;
               if not os.access(os.path.join(new_path,new_filename), os.F_OK):
                 break;
-          message = _("Moved {filename:s} from {frompath:s} to {topath:s} as {newfile:s}").format(filename=filename, frompath=path_to_watch, topath=new_path, newfile=new_filename)
-          n = pynotify.Notification(_("Download-Sorter"), message)
-          log.info(message)
+          try:
+            os.rename(pathname, os.path.join(new_path,new_filename))
+            message = _("Moved {filename:s} from {frompath:s} to {topath:s} as {newfile:s}").format(filename=filename, frompath=path_to_watch, topath=new_path, newfile=new_filename)
+            n = pynotify.Notification(_("Download-Sorter"), message)
+            log.info(message)
 
-          if not n.show():
-            log.error(_("Failed to send notification"))
-          os.rename(pathname, os.path.join(new_path,new_filename))
-          break;
+            if not n.show():
+              log.error(_("Failed to send notification"))
+            break;
+          except OSError:
+            log.error(_("Can't move file {filename:s} from {frompath:s} to {topath:s} as {newfile:s}").format(filename=filename, frompath=path_to_watch, topath=new_path, newfile=new_filename))
 
 handler = EventHandler()
 notifier = pyinotify.Notifier(wm, handler)
