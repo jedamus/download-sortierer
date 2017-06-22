@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: download-sortierer.py 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-16 01:46+0200\n"
+"POT-Creation-Date: 2017-06-22 17:10+0200\n"
 "PO-Revision-Date: 2017-06-16 01:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -17,14 +17,50 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: download-sortierer.py:44 download-sortierer.py:87
+#: download-sortierer.py:59 download-sortierer.py:112
 msgid "Download-Sorter"
 msgstr "Download-Sorter"
 
+#: download-sortierer.py:60
+msgid "Can't initialize pynotify"
+msgstr "Can't initialize pynotify"
+
+#: download-sortierer.py:67
+msgid "path = {path:s}"
+msgstr "path = {path:s}"
+
+#: download-sortierer.py:86
+msgid "new_path = {new_path:s}"
+msgstr "new_path = {new_path:s}"
+
+#: download-sortierer.py:87
+msgid "suffix_regex = {suffix_regex:s}"
+msgstr "suffix_regex = {suffix_regex:s}"
+
 #: download-sortierer.py:88
+msgid "suffix = {suffix:s}"
+msgstr "suffix = {suffix:s}"
+
+#: download-sortierer.py:93
+msgid "Can't create dirs {dirs:s}"
+msgstr "Can't create dirs {dirs:s}"
+
+#: download-sortierer.py:99
+msgid "filename = {filename:s}"
+msgstr "filename = {filename:s}"
+
+#: download-sortierer.py:100
+msgid "filename_without_suffix = {filename_without_suffix:s}"
+msgstr "filename_without_suffix = {filename_without_suffix:s}"
+
+#: download-sortierer.py:111
 msgid "Moved {filename:s} from {frompath:s} to {topath:s} as {newfile:s}"
 msgstr "Moved {filename:s} from {frompath:s} to {topath:s} as {newfile:s}"
 
-#: download-sortierer.py:90
+#: download-sortierer.py:116
 msgid "Failed to send notification"
 msgstr "Failed to send notification"
+
+#: download-sortierer.py:119
+msgid "Can't move file {filename:s} from {frompath:s} to {topath:s} as {newfile:s}"
+msgstr "Can't move file {filename:s} from {frompath:s} to {topath:s} as {newfile:s}"
