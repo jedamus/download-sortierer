@@ -2,7 +2,7 @@
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
-# modifiziert Donnerstag, 22. Juni 2017 15:23 von Leander Jedamus
+# modifiziert Donnerstag, 22. Juni 2017 15:26 von Leander Jedamus
 # modifiziert Freitag, 16. Juni 2017 01:57 von Leander Jedamus
 # modifiziert Montag, 12. Juni 2017 18:47 von Leander Jedamus
 # modifiziert Samstag, 10. Juni 2017 12:07 von Leander Jedamus
@@ -118,3 +118,4 @@ wdd = wm.add_watch(path_to_watch, mask, rec=False)
 notifier.loop()
 
 # vim:ai sw=2 sts=4 expandtab
+
