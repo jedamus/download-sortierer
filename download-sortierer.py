@@ -2,6 +2,7 @@
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
+# modifiziert Donnerstag, 22. Juni 2017 15:23 von Leander Jedamus
 # modifiziert Freitag, 16. Juni 2017 01:57 von Leander Jedamus
 # modifiziert Montag, 12. Juni 2017 18:47 von Leander Jedamus
 # modifiziert Samstag, 10. Juni 2017 12:07 von Leander Jedamus
@@ -14,9 +15,11 @@ import pyinotify
 import pynotify
 import re
 import gettext
+import logging
 
-home = os.environ["HOME"];
-path_to_watch = os.path.join(home,"Downloads");
+home = os.environ["HOME"]
+path_to_watch = os.path.join(home,"Downloads")
+log_path_and_filename = os.path.join("/tmp","download-sortierer.log")
 
 dict_suffix_and_path = {
   "dmg":       "dmg",
@@ -25,11 +28,23 @@ dict_suffix_and_path = {
   "zip":       "zip",
   "deb":       "deb",
   "pdf":       os.path.join(home,"Documents","pdf","download PDFs"),
+  "tgz":       "tgz",
   "tar.gz":    "tgz",
   "tar.xz":    "tgz",
   "tar.bzip2": "tgz",
   "a.b.c.d":   "abcd",
 };
+
+file_handler = logging.FileHandler(log_path_and_filename)
+stdout_handler = logging.StreamHandler(sys.stdout)
+formatter = logging.Formatter("%(asctime)s %(levelname)s: %(message)s",
+                              "%d.%m.%Y %H:%M:%S")
+file_handler.setFormatter(formatter)
+stdout_handler.setFormatter(formatter)
+log = logging.getLogger()
+log.addHandler(file_handler)
+log.addHandler(stdout_handler)
+log.setLevel(logging.DEBUG)
 
 scriptpath = os.path.abspath(os.path.dirname(sys.argv[0]))
 try:
@@ -37,64 +52,68 @@ try:
                                                        "translate"))
   trans.install(unicode=True)
 except IOError:
-  print("Fehler in gettext");
+  log.error("Fehler in gettext")
   def _(s):
-    return s;
+    return s
 
 if not pynotify.init(_("Download-Sorter")):
+  log.critical(_("Can't initialize pynotify"))
   sys.exit(1);
 
-dict_compiled_regex_and_path = {};
+dict_compiled_regex_and_path = {}
 for key in dict_suffix_and_path:
-  suffix = re.sub("[.]","[.]","." + key);
-  path = dict_suffix_and_path[key];
+  suffix = re.sub("[.]","[.]","." + key)
+  path = dict_suffix_and_path[key]
+  log.debug(_("path = {path:s}").format(path=path))
   if path[0] != "/":
-    path = os.path.join(path_to_watch,path);
+    path = os.path.join(path_to_watch,path)
   regex = os.path.join(path_to_watch,".*" + suffix);
-  compiled_key = re.compile(regex, re.UNICODE);
-  dict_compiled_regex_and_path.update({ compiled_key: [key, suffix, path] });
+  compiled_key = re.compile(regex, re.UNICODE)
+  dict_compiled_regex_and_path.update({ compiled_key: [key, suffix, path] })
 
 wm = pyinotify.WatchManager();  # Watch Manager
 mask = pyinotify.IN_CLOSE_WRITE # watched events
 
 class EventHandler(pyinotify.ProcessEvent):
     def process_IN_CLOSE_WRITE(self, event):
-      pathname = event.pathname;
+      pathname = event.pathname
       for key in dict_compiled_regex_and_path:
         if key.match(pathname):
-          new_path = dict_compiled_regex_and_path[key][2];
-          suffix_regex = dict_compiled_regex_and_path[key][1];
-          suffix = dict_compiled_regex_and_path[key][0];
+          new_path = dict_compiled_regex_and_path[key][2]
+          suffix_regex = dict_compiled_regex_and_path[key][1]
+          suffix = dict_compiled_regex_and_path[key][0]
 
-          #print(new_path);
-          #print(suffix_regex);
-          #print(suffix);
+          log.debug(_("new_path = {new_path:s}").format(new_path=new_path))
+          log.debug(_("suffix_regex = {suffix_regex:s}").format(suffix_regex=suffix_regex))
+          log.debug(_("suffix = {suffix:s}").format(suffix=suffix))
           if not os.access(new_path, os.F_OK | os.X_OK):
-            os.makedirs(new_path);
+            os.makedirs(new_path)
           filename = re.sub(os.path.join(".*","(.*") + suffix_regex + ")",
-            "\g<1>",pathname);
+            "\g<1>",pathname)
           filename_without_suffix = re.sub("(.*)" + suffix_regex,"\g<1>",
-                                           filename);
-          #print(filename);
-          #print(filename_without_suffix);
+                                           filename)
+          log.debug(_("filename = {filename:s}").format(filename=filename))
+          log.debug(_("filename_without_suffix = {filename_without_suffix:s}").format(filename_without_suffix=filename_without_suffix))
 
-          new_filename = os.path.join(new_path,filename);
+          new_filename = os.path.join(new_path,filename)
           if os.access(new_filename, os.F_OK):
             for i in range(2,99):
               new_filename = filename_without_suffix + "({i:02d})".format(i=i) \
                 + "." + suffix;
               if not os.access(os.path.join(new_path,new_filename), os.F_OK):
                 break;
-          n = pynotify.Notification(_("Download-Sorter"),
-                _("Moved {filename:s} from {frompath:s} to {topath:s} as {newfile:s}").format(filename=filename, frompath=path_to_watch, topath=new_path, newfile=new_filename));
+          message = _("Moved {filename:s} from {frompath:s} to {topath:s} as {newfile:s}").format(filename=filename, frompath=path_to_watch, topath=new_path, newfile=new_filename)
+          n = pynotify.Notification(_("Download-Sorter"), message)
+          log.info(message)
+
           if not n.show():
-            print(_("Failed to send notification"));
-          os.rename(pathname, os.path.join(new_path,new_filename));
+            log.error(_("Failed to send notification"))
+          os.rename(pathname, os.path.join(new_path,new_filename))
           break;
 
 handler = EventHandler()
 notifier = pyinotify.Notifier(wm, handler)
-wdd = wm.add_watch(path_to_watch, mask, rec=False);
+wdd = wm.add_watch(path_to_watch, mask, rec=False)
 
 notifier.loop()
 
