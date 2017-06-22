@@ -2,7 +2,7 @@
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
-# modifiziert Donnerstag, 22. Juni 2017 15:36 von Leander Jedamus
+# modifiziert Donnerstag, 22. Juni 2017 17:20 von Leander Jedamus
 # modifiziert Freitag, 16. Juni 2017 01:57 von Leander Jedamus
 # modifiziert Montag, 12. Juni 2017 18:47 von Leander Jedamus
 # modifiziert Samstag, 10. Juni 2017 12:07 von Leander Jedamus
@@ -44,7 +44,7 @@ stdout_handler.setFormatter(formatter)
 log = logging.getLogger()
 log.addHandler(file_handler)
 log.addHandler(stdout_handler)
-log.setLevel(logging.DEBUG)
+log.setLevel(logging.INFO)
 
 scriptpath = os.path.abspath(os.path.dirname(sys.argv[0]))
 try:
