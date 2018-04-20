@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Download-Sortierer
+GenericName=Download-Sortierer
+Comment=Download-Sortierer
+Exec=/home/leander/bin/download-sortierer.py
+Terminal=false
+Type=Application
+Icon=dropbox
+Categories=Helper
+StartupNotify=false
