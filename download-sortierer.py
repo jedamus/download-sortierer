@@ -2,6 +2,7 @@
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
+# modifiziert Montag, 04. Juni 2018 22:30 von Leander Jedamus
 # modifiziert Donnerstag, 22. Juni 2017 17:20 von Leander Jedamus
 # modifiziert Freitag, 16. Juni 2017 01:57 von Leander Jedamus
 # modifiziert Montag, 12. Juni 2017 18:47 von Leander Jedamus
@@ -18,8 +19,9 @@ import gettext
 import logging
 
 home = os.environ["HOME"]
+user = os.environ["USER"]
 path_to_watch = os.path.join(home,"Downloads")
-log_path_and_filename = os.path.join("/tmp","download-sortierer.log")
+log_path_and_filename = os.path.join("/tmp",user + "-download-sortierer.log")
 
 dict_suffix_and_path = {
   "dmg":       os.path.join("MacOS","dmg"),
