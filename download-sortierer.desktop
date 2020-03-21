@@ -2,7 +2,7 @@
 Name=Download-Sortierer
 GenericName=Download-Sortierer
 Comment=Download-Sortierer
-Exec=/home/leander/bin/download-sortierer.py
+Exec=/home/USER/bin/download-sortierer.py
 Terminal=false
 Type=Application
 Icon=dropbox
