@@ -63,6 +63,10 @@ msgid "Failed to send notification"
 msgstr "Konnte Meldung nicht senden"
 
 #: download-sortierer.py:119
+msgid "Documents"
+msgstr "Dokumente"
+
+#: download-sortierer.py:119
 msgid ""
 "Can't move file {filename:s} from {frompath:s} to {topath:s} as {newfile:s}"
 msgstr ""

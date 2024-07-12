@@ -2,6 +2,7 @@
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
+# modifiziert Freitag, 12. Juli 2024 23:45 von Leander Jedamus
 # modifiziert Samstag, 27. April 2024 06:26 von Leander Jedamus
 # modifiziert Donnerstag, 19. November 2020 09:16 von Leander Jedamus
 # modifiziert Montag, 04. Juni 2018 22:30 von Leander Jedamus
@@ -31,11 +32,11 @@ dict_suffix_and_path = {
   "iso":       "iso",
   "zip":       "zip",
   "deb":       "deb",
-  "pdf":       os.path.join(home,"Dokumente","pdf","download PDFs"),
-  "docx":      os.path.join(home,"Dokumente","Word"),
-  "xlsx":      os.path.join(home,"Dokumente","Excel"),
-  "odt":       os.path.join(home,"Dokumente","LibreOffice"),
-  "ods":       os.path.join(home,"Dokumente","LibreOffice"),
+  "pdf":       os.path.join(home,_("Documents"),"pdf","download PDFs"),
+  "docx":      os.path.join(home,_("Documents"),"Word"),
+  "xlsx":      os.path.join(home,_("Documents"),"Excel"),
+  "odt":       os.path.join(home,_("Documents"),"LibreOffice"),
+  "ods":       os.path.join(home,_("Documents"),"LibreOffice"),
   "tgz":       "tgz",
   "tar.gz":    "tgz",
   "tar.xz":    "tgz",
