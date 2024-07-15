@@ -2,6 +2,7 @@
 # coding=utf8
 
 # erzeugt Donnerstag, 08. Juni 2017 19:05 (C) 2017 von Leander Jedamus
+# modifiziert Montag, 15. Juli 2024 09:33 von Leander Jedamus
 # modifiziert Freitag, 12. Juli 2024 23:45 von Leander Jedamus
 # modifiziert Samstag, 27. April 2024 06:26 von Leander Jedamus
 # modifiziert Donnerstag, 19. November 2020 09:16 von Leander Jedamus
@@ -23,6 +24,17 @@ import logging
 
 home = os.environ["HOME"]
 user = os.environ["USER"]
+
+scriptpath = os.path.abspath(os.path.dirname(sys.argv[0]))
+try:
+  trans = gettext.translation("download-sortierer.py",os.path.join(scriptpath, \
+                                                       "locale"))
+  trans.install(unicode=True)
+except IOError:
+  log.error("Fehler in gettext")
+  def _(s):
+    return s
+
 path_to_watch = os.path.join(home,"Downloads")
 log_path_and_filename = os.path.join("/tmp",user + "-download-sortierer.log")
 
@@ -54,16 +66,6 @@ log = logging.getLogger()
 log.addHandler(file_handler)
 log.addHandler(stdout_handler)
 log.setLevel(logging.INFO)
-
-scriptpath = os.path.abspath(os.path.dirname(sys.argv[0]))
-try:
-  trans = gettext.translation("download-sortierer.py",os.path.join(scriptpath, \
-                                                       "locale"))
-  trans.install(unicode=True)
-except IOError:
-  log.error("Fehler in gettext")
-  def _(s):
-    return s
 
 if not pynotify.init(_("Download-Sorter")):
   log.critical(_("Can't initialize pynotify"))
