@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: download-sortierer.py 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-22 17:10+0200\n"
+"POT-Creation-Date: 2017-06-22 17:14+0200\n"
 "PO-Revision-Date: 2017-06-16 01:46+0200\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -55,12 +55,20 @@ msgstr ""
 
 #: download-sortierer.py:111
 msgid "Moved {filename:s} from {frompath:s} to {topath:s} as {newfile:s}"
-msgstr "Verschiebe {filename:s} von {frompath:s} nach {topath:s} als {newfile:s}"
+msgstr ""
+"Verschiebe {filename:s} von {frompath:s} nach {topath:s} als {newfile:s}"
 
 #: download-sortierer.py:116
 msgid "Failed to send notification"
 msgstr "Konnte Meldung nicht senden"
 
 #: download-sortierer.py:119
-msgid "Can't move file {filename:s} from {frompath:s} to {topath:s} as {newfile:s}"
-msgstr "Kann {filename:s} von {frompath:s} nach {topath:s} als {newfile:s} nicht verschieben"
+msgid "Documents"
+msgstr "Dokumente"
+
+#: download-sortierer.py:119
+msgid ""
+"Can't move file {filename:s} from {frompath:s} to {topath:s} as {newfile:s}"
+msgstr ""
+"Kann {filename:s} von {frompath:s} nach {topath:s} als {newfile:s} nicht "
+"verschieben"

@@ -1,67 +1,73 @@
 # download-sortierer.py.
-# Copyright (C) 2017 Leander Jedamus
+# Copyright (C) 2024 Leander Jedamus
 # This file is distributed under the same license as the download-sortierer.py package.
-# ljedamus@testmail.com, 2017.
+# ljedamus@web.de, 2024.
 #
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: download-sortierer.py 1.0\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-22 17:14+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Leander Jedamus <ljedamus@testmail.com>\n"
-"Language-Team: Leander Jedamus <ljedamus@testmail.com>\n"
-"Language: \n"
+"Report-Msgid-Bugs-To: Leander Jedamus <ljedamus@web.de>\n"
+"POT-Creation-Date: 2024-07-15 09:22+0200\n"
+"PO-Revision-Date: 2024-07-15 09:22+0200\n"
+"Last-Translator: Leander Jedamus <ljedamus@web.de>\n"
+"Language-Team: Leander Jedamus <ljedamus@web.de>\n"
+"Language: de en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: download-sortierer.py:59 download-sortierer.py:112
+#: download-sortierer.py:35 download-sortierer.py:36
+#: download-sortierer.py:37 download-sortierer.py:38
+#: download-sortierer.py:39
+msgid "Documents"
+msgstr ""
+
+#: download-sortierer.py:68 download-sortierer.py:121
 msgid "Download-Sorter"
 msgstr ""
 
-#: download-sortierer.py:60
+#: download-sortierer.py:69
 msgid "Can't initialize pynotify"
 msgstr ""
 
-#: download-sortierer.py:67
+#: download-sortierer.py:76
 msgid "path = {path:s}"
 msgstr ""
 
-#: download-sortierer.py:86
+#: download-sortierer.py:95
 msgid "new_path = {new_path:s}"
 msgstr ""
 
-#: download-sortierer.py:87
+#: download-sortierer.py:96
 msgid "suffix_regex = {suffix_regex:s}"
 msgstr ""
 
-#: download-sortierer.py:88
+#: download-sortierer.py:97
 msgid "suffix = {suffix:s}"
 msgstr ""
 
-#: download-sortierer.py:93
+#: download-sortierer.py:102
 msgid "Can't create dirs {dirs:s}"
 msgstr ""
 
-#: download-sortierer.py:99
+#: download-sortierer.py:108
 msgid "filename = {filename:s}"
 msgstr ""
 
-#: download-sortierer.py:100
+#: download-sortierer.py:109
 msgid "filename_without_suffix = {filename_without_suffix:s}"
 msgstr ""
 
-#: download-sortierer.py:111
+#: download-sortierer.py:120
 msgid "Moved {filename:s} from {frompath:s} to {topath:s} as {newfile:s}"
 msgstr ""
 
-#: download-sortierer.py:116
+#: download-sortierer.py:125
 msgid "Failed to send notification"
 msgstr ""
 
-#: download-sortierer.py:119
+#: download-sortierer.py:128
 msgid ""
 "Can't move file {filename:s} from {frompath:s} to {topath:s} as {newfile:s}"
 msgstr ""
